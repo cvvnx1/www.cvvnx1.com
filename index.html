@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>cvvnx1's blog</title>
+
+<link rel="stylesheet" type="text/css" href="http://www.cvvnx1.com/css/css_base.php" />
+<link rel="stylesheet" type="text/css" href="http://www.cvvnx1.com/css/css_frame.php" />
+<script type="text/javascript" src="http://www.cvvnx1.com/js/jquery.min.js"></script>
+<!--[if (gte IE 6)&(lte IE 8)]>
+  <script type="text/javascript" src="http://www.cvvnx1.com/js/selectivizr.min.js"></script>
+  <noscript><link rel="stylesheet" href="http://www.cvvnx1.com/css/css_frame.php" /></noscript>
+<![endif]-->
+<script type="text/javascript">
+$(document).ready(function(){
+
+  appendFrame('index');
+
+  var maxnum = 999;
+  var num = 0;
+
+  $(window).scroll(function(){  
+    if( $(window).scrollTop() >= ( $(document).height() - $(window).height() ) && num != maxnum){
+      appendFrame('index');
+      num++;
+    }
+  });
+});
+
+function appendFrame(appendMethod){
+  switch(appendMethod){
+  case 'admin':
+    getFrameInfo('http://www.cvvnx1.com/lib/frameproc.php',$("div#left_div"),'divlength=' + $(".content").size() + '&pagetype=admin');
+    $("div#left_div").find('.content:odd').addClass('oddframebg');
+    $("div#left_div").find('.content:even').addClass('evenframebg');
+    break;
+  case 'index':
+    getFrameInfo('http://www.cvvnx1.com/lib/frameproc.php',$("div#left_div"),'divlength=' + $(".content").size() + '&pagetype=index');
+    $("div#left_div").find('.content:odd').addClass('oddframebg');
+    $("div#left_div").find('.content:even').addClass('evenframebg');
+    break;
+  }
+}
+
+function getFrameInfo(handlePage,appendObj,inputData){
+  $.ajax({
+    type: 'POST',
+    async: false,
+    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+    url: handlePage,
+    data: inputData,
+    dataType: 'text',
+    success:function(returnData){
+      //appendObj.append(returnData);
+      $(returnData).appendTo(appendObj);
+    },
+    error:function(){
+      window.location.reload();
+    }
+  });
+}
+</script>
+</head>
+
+<body style="background-color:#CCCCCC;">
+
+<!--Main frame-->
+<div class="main_div" id="main_div">
+<table width="1100px">
+<tr>
+  <td>
+    <!--Left frame-->
+    <div class="left_div" id="left_div">
+    </div>
+  </td>
+  <td>
+    <!--Right frame-->
+    <div class="right_div" id="right_div">
+      <p>这片空白还没想好放什么。。</p>
+    </div>
+  </td>
+</tr>
+</table>
+</div>
+
+<!--Copyright frame-->
+<div class="copyright_div" id="copyright_div">
+<p>Power by <a href="mailto:cvvnx1@163.com">cvvnx1</a> &#169; 2013</p>
+</div>
+</body>
+</html>

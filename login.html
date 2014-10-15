@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>BLOG - Login</title>
+
+<link rel="stylesheet" type="text/css" href="http://www.cvvnx1.com/css/css_base.php" />
+<link rel="stylesheet" type="text/css" href="http://www.cvvnx1.com/css/css_login.php" />
+<script type="text/javascript" src="http://www.cvvnx1.com/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.cvvnx1.com/js/js_atom_base.php"></script>
+<script type="text/javascript" src="http://www.cvvnx1.com/js/js_lib_base.php"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	initials();
+});
+
+function initials(){
+	errMsg = '* 请填写如下所示项目';
+	// login_button click
+	$('#login_button').click(function(){
+		var T_i = 0;
+		$('input').each(function(){
+			T_i += atom_checkInputBlank($(this),'input_field_err',$('#showerr_div'),errMsg);
+		});
+		if (T_i == 0){
+			$('#showerr_div').text('');
+			loginSubmit('http://www.cvvnx1.com/login.php',$('form'),$('#showerr_div'),'http://www.cvvnx1.com/login.php');
+		}
+	});
+	// login_button blur
+	$('input').blur(function(){
+		var T_i = 0;
+		T_i += atom_checkInputBlank($(this),'input_field_err',$('#showerr_div'),errMsg);
+		atom_cancelErrorMsg($('input'),$('#showerr_div'));
+	});
+	atom_setElementHover($('#login_button'));
+	atom_pressEnterTriggerEvent($('input'),$('#login_button'),'click');
+	$('#userid').focus();
+}
+
+</script>
+</head>
+
+<body style="margin-top:50px;" />
+<div class="framediv" />
+<form>
+<table>
+<tr>
+<td colspan="2"><span>BLOG</span></td>
+</tr>
+<tr>
+<td colspan="2"><hr /></td>
+</tr>
+<tr height="200px">
+<td colspan="2"><div id="showerr_div" class="showerr_div"></div></td>
+</tr>
+<tr>
+<td style="width:96px; height:24px;"><span>用户名:</span></td><td><input type="text" name="userid" class="text_input" id="userid" /></td>
+</tr>
+<tr>
+<td style="width:96px; height:24px;"><span>密&nbsp;&nbsp;码:</span></td><td><input type="password" name="userpsw" class="text_input" id="userpsw" /></td>
+</tr>
+<tr>
+<td colspan="2"><br /></td>
+</tr>
+<tr>
+<td colspan="2" align="center"><div class="login_button_div" id="login_button" /><span class="login_button_span">登&nbsp;&nbsp;录</span></div></td>
+</tr>
+</table>
+</form>
+</div>
+</body>
+
+</html>
